@@ -19,8 +19,59 @@ def byteSumToBools(toconv):
 	return booltable
 
 
-# Settings
-loading_time = 15 # Dlugosc ladowania systemow EU44
+#draw.ellipse(((2193,1595),(2226,1630)), fill=ref_red) #przód prawy
+#draw.ellipse(((2251,1594),(2284,1629)), fill=ref_red) #przód lewy
+#draw.ellipse(((2223,1561),(2256,1596)), fill=ref_red) #przód górny
+#draw.ellipse(((2193,1673),(2226,1708)), fill=ref_red) # tył prawy
+#draw.ellipse(((2251,1673),(2284,1708)), fill=ref_red) # tył lewy
+#draw.ellipse(((2223,1641),(2256,1674)), fill=ref_red) #tył górny
+def byteSumToDraw(toconv, side, draw): #side == 0 - przód side == 1 - tył 
+	if(toconv / 256 >= 1):
+		if(side==0):
+			draw.ellipse(((2193,1595),(2226,1630)), fill=ref_white)
+		if(side==1):
+			draw.ellipse(((2193,1673),(2226,1708)), fill=ref_white)
+		toconv -= ((toconv/256)*256) # odejmujemy od sumy
+	if(toconv / 128 >= 1):
+		if(side==0):
+			draw.ellipse(((2251,1594),(2284,1629)), fill=ref_white)
+		if(side==1):
+			draw.ellipse(((2251,1673),(2284,1708)), fill=ref_white)
+		toconv -= ((toconv/128)*128)
+	if(toconv / 32 >= 1):
+		if(side==0):
+			draw.ellipse(((2193,1595),(2226,1630)), fill=ref_red)
+		if(side==1):
+			draw.ellipse(((2193,1673),(2226,1708)), fill=ref_red)
+		toconv -= ((toconv/32)*32)
+	if(toconv / 16 >= 1):
+		if(side==0):
+			draw.ellipse(((2193,1595),(2226,1630)), fill=ref_white)
+		if(side==1):
+			draw.ellipse(((2193,1673),(2226,1708)), fill=ref_white)
+		toconv -= ((toconv/16)*16)
+	if(toconv / 4 >= 1):
+		if(side==0):
+			draw.ellipse(((2223,1561),(2256,1596)), fill=ref_white)
+		if(side==1):
+			draw.ellipse(((2223,1641),(2256,1674)), fill=ref_white)
+		toconv -= ((toconv/4)*4)
+	if(toconv / 2 >= 1):
+		if(side==0):
+			draw.ellipse(((2251,1594),(2284,1629)), fill=ref_red)
+		if(side==1):
+			draw.ellipse(((2251,1673),(2284,1708)), fill=ref_red)
+		toconv -= ((toconv/2)*2)
+	if(toconv / 1 >= 1):
+		if(side==0):
+			draw.ellipse(((2251,1594),(2284,1629)), fill=ref_white)
+		if(side==1):
+			draw.ellipse(((2251,1673),(2284,1708)), fill=ref_white)
+		toconv -= ((toconv/1)*1)
+	if(toconv==0):
+		print("ok")
+	if(toconv==1):
+		print("nie ok")
 
 
 # definicje kolorow
@@ -84,12 +135,14 @@ class eu44_render(abstractscreenrenderer):
 		self.temp = (random()*15) + 20
 		self.last_time_update = 0
 		self.aktyw = 0
+		self.pobranyprad = 0
+		self.oddanyprad = 0
 		
 	def _render(self, state):
 		obrazek = self.podklad.copy()
-		
+		seconds = state['seconds']	
 		if state['battery'] or state['converter']:
-			seconds = state['seconds']	
+			
 			dt = 0
 
 			draw = ImageDraw.Draw(obrazek)
@@ -101,7 +154,7 @@ class eu44_render(abstractscreenrenderer):
 				self.last_time_update = seconds
 
 			self.aktyw += dt
-			if self.aktyw<loading_time:
+			if self.aktyw<5:
 				war_prawy = False
 				war_tacho = False
 			else:
@@ -356,10 +409,21 @@ class eu44_render(abstractscreenrenderer):
 						obrazek.paste(self.engine4off, (1535, 1279), self.engine4off)
 
 					# Ref status
-					ref_a = bytes(state['lights_front'])
-					ref_b = bytes(state['lights_rear'])
-
-					# Tu kiedyś będzie kod reflektorow
+					ref_a = state['lights_front']
+					ref_b = state['lights_rear']
+					#Reflektory
+					byteSumToDraw(ref_a, 0, draw)
+					byteSumToDraw(ref_b, 1, draw)
+					#Pobierany/oddawany prąd (w kWh) baniel zweryfikuje
+					voltage = state['traction_voltage']
+					current = state['eimp_c1_ihv']
+					if (current > 0):
+						self.pobranyprad+=float((current*voltage)/12047935.8)
+					if (current < 0):
+						current*=-1
+						self.oddanyprad+=float((current*voltage)/11673469.4)
+					draw.text((2322,746), str(int(floor(self.pobranyprad))), fill=niebieski, font=self.maly_arial)
+					draw.text((2322,923), str(int(floor(self.oddanyprad))), fill=zolty_diag, font=self.maly_arial)
 
 
 
