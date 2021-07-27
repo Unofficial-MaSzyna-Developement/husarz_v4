@@ -1,5 +1,14 @@
 ﻿#encoding: UTF-8
 
+# Ustawienia
+
+# Dlugość ładowania systemu (s)
+loading_length = 15
+
+
+
+
+
 from PIL import ImageDraw, ImageFont, Image
 from random import random
 from datetime import datetime, timedelta, date
@@ -149,7 +158,7 @@ class eu44_render(abstractscreenrenderer):
 					dt+=60
 				self.last_time_update = seconds
 			self.aktyw += dt
-			if self.aktyw<5:
+			if self.aktyw<loading_length:
 				war_prawy = False
 				war_tacho = False
 			else:
