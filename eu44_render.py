@@ -116,7 +116,6 @@ class eu44_render(abstractscreenrenderer):
 		self.ws_initized = Image.open(lookup_path + "ws_initized.png")
 		self.ws_ninitized = Image.open(lookup_path + "ws_ninitized.png")
 		self.brak_jazdy = Image.open(lookup_path + "brak_jazdy.png")
-
 		self.engine1off = Image.open(lookup_path + "engine_1_off.png")
 		self.engine2off = Image.open(lookup_path + "engine_2_off.png")
 		self.engine3off = Image.open(lookup_path + "engine_3_off.png")
@@ -126,7 +125,6 @@ class eu44_render(abstractscreenrenderer):
 		self.engine3on = Image.open(lookup_path + "engine_3_on.png")
 		self.engine4on = Image.open(lookup_path + "engine_4_on.png")
 		self.loading = Image.open(lookup_path + "loading.png")
-
 		self.kilometry = (random()*300000)+5000
 		self.last_time_update = 0
 		self.dzis = datetime.now().timetuple().tm_yday
@@ -135,6 +133,7 @@ class eu44_render(abstractscreenrenderer):
 		self.temp = (random()*15) + 20
 		self.last_time_update = 0
 		self.aktyw = 0
+		self.last_update_sec = 0
 		self.pobranyprad = 0
 		self.oddanyprad = 0
 		
@@ -142,17 +141,13 @@ class eu44_render(abstractscreenrenderer):
 		obrazek = self.podklad.copy()
 		seconds = state['seconds']	
 		if state['battery'] or state['converter']:
-			
 			dt = 0
-
 			draw = ImageDraw.Draw(obrazek)
-
 			if seconds != self.last_time_update:
 				dt = seconds - self.last_time_update
 				if dt < 0:
 					dt+=60
 				self.last_time_update = seconds
-
 			self.aktyw += dt
 			if self.aktyw<5:
 				war_prawy = False
@@ -216,7 +211,6 @@ class eu44_render(abstractscreenrenderer):
 					obrazek.paste(self.diag, (136, 101), self.diag) # ekran diagnostyczny
 
 					#ERTMS prędkościomierz
-
 					rotate = speed * 300 / 240 + 30
 					rad =  radians(rotate)
 					srodek_tacho = (876, 2685)
@@ -257,11 +251,9 @@ class eu44_render(abstractscreenrenderer):
 
 
 					# Cisnienie w PG
-
 					pg_pressure = state['eimp_pn1_bp']
 					if (pg_pressure > 8):
 						pg_pressure = 8
-
 					height = 1366 - (1087 / 8 * pg_pressure)
 					if (pg_pressure > 4.70):
 						# x, y, x + szerokosc, y - wysokosc
@@ -269,48 +261,31 @@ class eu44_render(abstractscreenrenderer):
 					else:
 						draw.rectangle(((1805, 1366), (1805 + 77, height)), fill=zolty_diag)
 
-					
-
 					# Napiecie w sieci
 					voltage = state['traction_voltage'] / 1000 - 2.0
 					print(voltage)
 					if (voltage > 2.5):
 						voltage = 2.5
-
 					if (voltage < 0.0):
 						voltage = 0.0
-
 					height = 1162 - (971 / 2.5 * voltage) # pozycja bezwzgledna lewego rogu Y, wysokosc / zakres * wartosc
-
 					draw.rectangle(((335, 1162), (335 + 36, height)), fill=niebieski) # X, Y, X + szer, wysokosc
 
-
 					# Cylindry hamulcowe
-
 					ch_pressure = float(state['eimp_pn1_bc'])
-					#self.print_center(draw, '%d' % ch_pressure, 876, 2685, self.sredni_arial, czarny) # Wyświetlanie cyferki
 					if (ch_pressure > 5):
 						ch_pressure = 5
-
-
 					draw.rectangle(((2150, 1088),(2150 + (452 / 5 * ch_pressure), 1088 + 74)), fill=zolty_diag)
-
 					draw.rectangle(((2150, 1288),(2150 + (452 / 5 * ch_pressure), 1288 + 74)), fill=zolty_diag)
 
 					#cisnienie w ZG
-
 					zg_pressure = state['eimp_pn1_sp']
-
 					if zg_pressure > 12:
 						zg_pressure = 12
-
 					height = 280 + 695 - (695 / 12 * zg_pressure) # pozycja bezwzgledna lewego rogu Y, wysokosc / zakres * wartosc
-
 					draw.rectangle(((2163, 280+695), (2163 + 74, height)), fill=zolty_diag) # X, Y, X + szer, wysokosc
 
-					
 					# SIŁY
-
 					force = state['eimp_c1_fr'] / 4
 					if (force > 90):
 						force = 90
@@ -359,7 +334,10 @@ class eu44_render(abstractscreenrenderer):
 					force_precetange = int(state['eimp_c1_pr'] * 100)
 					self.print_right(draw, '%d' % force_precetange, 2000, 2946, self.sredni_arial, czarny) # Wyświetlanie cyferki
 
-					# Kontrolki
+					#############
+					# Kontrolki #
+					#############
+
 					# Czuwak/SIFA
 					if (state['ca']):
 						obrazek.paste(self.sifa, (2212, 3321), self.sifa)
@@ -389,14 +367,12 @@ class eu44_render(abstractscreenrenderer):
 					# Brak jazdy
 					if (state['linebreaker'] == False or state['eimp_pn1_bc'] > 0.2 or state['brakes_1_spring_active'] == True):
 						obrazek.paste(self.brak_jazdy, (1079, 1536), self.brak_jazdy)
-						
 
 					# Diag time
 					draw.text((2330,345), godz +":"+ min +":"+ sec, fill=czarny, font=self.maly_arial) # Godzina
 					draw.text((2300,164), DayL[dzien] + " " + datab, fill=czarny, font=self.maly_arial) # Godzina
 
 					# Silniki status
-
 					if (state['linebreaker']):
 						obrazek.paste(self.engine1on, (817, 1279), self.engine1on)
 						obrazek.paste(self.engine2on, (1057, 1279), self.engine2on)
@@ -411,22 +387,31 @@ class eu44_render(abstractscreenrenderer):
 					# Ref status
 					ref_a = state['lights_front']
 					ref_b = state['lights_rear']
+
 					#Reflektory
 					byteSumToDraw(ref_a, 0, draw)
 					byteSumToDraw(ref_b, 1, draw)
-					#Pobierany/oddawany prąd (w kWh) baniel zweryfikuje
-					voltage = state['traction_voltage']
+
+					#Pobierany/oddawany prąd (w kWh)
+					voltage = state['eimp_c1_uhv']
 					current = state['eimp_c1_ihv']
-					if (current > 0):
-						self.pobranyprad+=float((current*voltage)/12047935.8)
-					if (current < 0):
-						current*=-1
-						self.oddanyprad+=float((current*voltage)/11673469.4)
+
+					# Stary kod bruda z jakimiś random wartościami
+					#if (current > 0):
+					#	self.pobranyprad+=float((current*voltage)/12047935.8)
+					#if (current < 0):
+					#	current*=-1
+					#	self.oddanyprad+=float((current*voltage)/11673469.4)
+
+					if (self.aktyw != self.last_update_sec):
+						last_update_sec = self.aktyw
+						if current > 0:
+							self.pobranyprad += voltage * current / 3600 / 1000 # P = U * I voltage * current / 3600 (aby miec Wh) / 1000 (aby byly kWh)
+						if current < 0:
+							self.oddanyprad += voltage * -(current) / 3600 / 1000
+
 					draw.text((2322,746), str(int(floor(self.pobranyprad))), fill=niebieski, font=self.maly_arial)
 					draw.text((2322,923), str(int(floor(self.oddanyprad))), fill=zolty_diag, font=self.maly_arial)
-
-
-
 		else:
 			self.aktyw = 0
 
