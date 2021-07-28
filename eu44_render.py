@@ -419,8 +419,8 @@ class eu44_render(abstractscreenrenderer):
 						if current < 0:
 							self.oddanyprad += voltage * -(current) / 3600 / 1000
 
-					draw.text((2322,746), str(int(floor(self.pobranyprad))), fill=niebieski, font=self.maly_arial)
-					draw.text((2322,923), str(int(floor(self.oddanyprad))), fill=zolty_diag, font=self.maly_arial)
+					draw.text((2352,731), str(int(floor(self.pobranyprad))), fill=niebieski, font=self.maly_arial)
+					draw.text((2352,908), str(int(floor(self.oddanyprad))), fill=zolty_diag, font=self.maly_arial)
 		else:
 			self.aktyw = 0
 
