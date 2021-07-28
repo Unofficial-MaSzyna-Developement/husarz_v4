@@ -1,8 +1,9 @@
 
 models: ES64U4d.t3d#
-animations: 4 0 0 4 2 2 -1
+animations: 4 0 0 4 2 2 0 0 4 -1
 lowpolyinterior: int.t3d
 animwheelprefix: wheel0
+animmirrorprefix: lusterko0
 animpantrd1prefix: ramiedolne1_pant0
 animpantrd2prefix: ramiedolne2_pant0
 animpantrg1prefix: ramiegorne1_pant0
@@ -177,7 +178,7 @@ main_sw: { ws_switch rot 0.16 -0.08 0.1 type: push soundinc: 26284_es64f4_przyci
 security_reset_bt: { sifa rot 0.02777 0.0 0.1 soundinc: 20786_189_sifa_pedal_v2_on.wav sounddec: 20786_189_sifa_pedal_v2_of.wav }
 autosandallow_sw: { piasecznica rot 0.08 0 0.2 soundinc: 20786_189_switch_sand.wav sounddec: 20786_189_switch_sand.wav }
 pantselected_sw:  { panto rot 0.16 -0.08 0.10 type: push soundinc: 26284_es64f4_przycisk_10_on.wav sounddec: 26284_es64f4_przycisk_10_off.wav }
-tempomat_sw: { afb_switch rot 0.2 0 0.1 soundinc: 26284_es64f4_afb_on.wav sounddec: 26284_es64f4_afb_off.wav }
+tempomat_sw: { afb_switch rot 0.246 0 0.1 soundinc: 26284_es64f4_afb_on.wav sounddec: 26284_es64f4_afb_off.wav }
 pantfront_sw: none rot 0 0 0
 pantrear_sw: none rot 0 0 0 
 pantfrontoff_sw: none rot 0 0 0
@@ -207,8 +208,9 @@ universal2: { roleta_mechanik mov 0.18 0.0 0.28 soundinc: [1007]roleta_dol2.wav 
 universal1: { roleta_pomocnik mov 0.2 0.0 0.3 soundinc: [1007]roleta_dol2.wav sounddec: [1007]roleta_gora2.wav }
 distancecounter_sw: { zasadniczy_przycisk mov -0.003 0 0.1 soundinc: 20786_en62_button_stable_1_on.wav sounddec: 20786_en62_button_stable_1_of.wav }
 springbrakeon_bt: { spring_enable mov -0.003 0 0.1 soundinc: 20786_en62_button_stable_1_on.wav sounddec: 20786_en62_button_stable_1_of.wav }
-springbrakeoff_bt: { spring_disable mov -0.003 0 0.1 soundinc: 20786_en62_button_stable_1_on.wav sounddec: 20786_en62_button_stable_1_of.wav }
+springbrakeoff_bt: { spring_disable mov 1 0 0.1 soundinc: 20786_en62_button_stable_1_on.wav sounddec: 20786_en62_button_stable_1_of.wav }
 doorpermitpreset_sw: { drzwi_p rot 0.2 0 0.1 soundinc: 20786_203e_hebelek_2_on.wav sounddec: 20786_203e_hebelek_2_of.wav }
+doorpermitpreset_sw: { door_selector rot -0.249 0.250 0.1 soundinc: 20786_203e_hebelek_2_on.wav sounddec: 20786_203e_hebelek_2_of.wav }
 universalbrake3_bt: { bt_asymilacja -0.003 0 0.1 type: push soundinc: 20786_en62_button_stable_1_on.wav sounddec: 20786_en62_button_stable_1_of.wav }
 manualbrake: { bezposr rot -0.005 0.0 -5.8 sound0: 20786_189_unbrake.wav sound10: 20786_189_brake_6.wav }
 brakepress: CylHamKnob rot 1.25 0 0
