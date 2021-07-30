@@ -158,6 +158,75 @@ driver1pos:
 driver1sitpos:   
 -0.571 3.0 7.24
 cab1model: kabina_a.t3d
+mainctrl: { nastawnik rot 0.027 0 0.1 
+sound1: [ 26284_36wea_nastawnik_1.wav 26284_36wea_nastawnik_1_v2.wav ]
+sound10: 26284_36wea_nastawnik_10.wav }
+dirkey: { kierunkowy rot -0.09 0.01 0.1 soundinc: 26284_es64f4_przycisk_1_on.wav sounddec: 26284_es64f4_przycisk_1_off.wav sound0: 26284_es64f4_przycisk_2.wav }
+scndctrl: { afb rot 0.0056667 0.0 0.1 soundinc: silence1.ogg sounddec: silence1.ogg }
+brakectrl: { zespolony rot -0.0223 0.005 0.1 sound-2: 20786_189_brake_7.wav sound-1: 20786_189_unbrake.wav sound0: 20786_189_brake_1.wav sound1: 20786_189_brake_2.wav sound2: 20786_189_brake_3.wav sound3: 20786_189_brake_4.wav sound4: 20786_189_brake_5.wav sound5: 20786_189_brake_6.wav sound6: 20786_189_emergency_brake.wav }
+localbrake: { electrodynamic rot -0.0228 -0.07 0.1 soundinc: husarz_ham_dec_inc.wav sounddec: husarz_ham_dec_inc.wav }
+//main_off_bt: { wylacznik_glowny_wyl rot -0.08 0 0.1 soundinc: 20786_203e_hebelek_3_on.wav sounddec: 20786_203e_hebelek_3_of.wav }
+main_sw: { ws_switch rot 0.16 -0.08 0.1 type: push soundinc: 26284_es64f4_przycisk_1_on.wav sounddec: 26284_es64f4_przycisk_1_off.wav }
+security_reset_bt: { sifa rot 0.02777 0.0 0.1 soundinc: 20786_189_sifa_pedal_v2_on.wav sounddec: 20786_189_sifa_pedal_v2_of.wav }
+autosandallow_sw: { piasecznica rot 0.08 0 0.2 soundinc: 20786_189_switch_sand.wav sounddec: 20786_189_switch_sand.wav }
+pantselected_sw:  { panto rot 0.16 -0.08 0.10 type: push soundinc: 26284_es64f4_przycisk_10_on.wav sounddec: 26284_es64f4_przycisk_10_off.wav }
+tempomat_sw: { afb_switch rot 0.246 0 0.1 soundinc: 26284_es64f4_afb_on.wav sounddec: 26284_es64f4_afb_off.wav }
+pantfront_sw: none rot 0 0 0
+pantrear_sw: none rot 0 0 0 
+pantfrontoff_sw: none rot 0 0 0
+pantrearoff_sw: none rot 0 0 0 
+dimheadlights_sw: { light_dimmer rot -0.22 0.13 0.1 soundinc: 26284_es64f4_przycisk_1_on.wav sounddec: 26284_es64f4_przycisk_1_off.wav }
+lights_sw: { lights_sw rot 0.0 0 0.0 soundinc: 24150_puk_lcd.flac sounddec: 24150_puk_lcd.flac }
+dashboardlight_sw: { light_sw rot 0.08 0 0.07 soundinc: 20786_203e_hebelek_2_on.wav sounddec: 20786_203e_hebelek_2_of.wav }
+i-dashboardlight: i-dashboardlight
+cablight_sw: { light_sw rot -0.08 0 0.07 soundinc: 26284_es64f4_przycisk_1_on.wav sounddec: 26284_es64f4_przycisk_1_off.wav }
+//releaser_bt:  { odluzniacz mov -0.029 0 0.2 soundinc: 20786_189_button_releaser.wav sounddec: 20786_189_button_releaser_2.wav }
+dirbackward_bt: { kierunek_tyl mov -0.001 0 0.1 soundinc: 20786_en62_button_stable_1_on.wav sounddec: 20786_en62_button_stable_1_of.wav }
+dirneutral_bt: { kierunek_n mov -0.001 0 0.1 soundinc: 20786_en62_button_stable_1_on.wav sounddec: 20786_en62_button_stable_1_of.wav }
+dirforward_bt: { kierunek_przod mov -0.001 0 0.1 soundinc: 20786_en62_button_stable_1_on.wav sounddec: 20786_en62_button_stable_1_of.wav }
+releaser_bt: { odluzniacz rot 0.08 0 0.1 soundinc: 20786_203e_hebelek_4_on.wav sounddec: 20786_203e_hebelek_4_of.wav }
+trainheating_sw: { guzik_grzania mov -0.003 0 0.1 type: return soundinc: 20786_en62_button_stable_1_on.wav sounddec: 20786_en62_button_stable_1_of.wav }
+sand_bt: { sander rot -0.15 0 0.05 soundinc: 1216_sander_on.wav sounddec: 1216_sander_off.wav }
+whistle_bt: { pedal_syrena mov -0.008 0 0.1 soundinc: 20786_189_sifa_pedal_v2_on.wav sounddec: 20786_189_sifa_pedal_v2_of.wav }
+horn_bt: { syrena rot 0.1 0.0 0.04 soundinc: 26284_es64f4_przycisk_6_on.wav sounddec: 26284_es64f4_przycisk_6_off.wav }
+instrumentlight_sw: { oswietlenie_przyrzadow rot 0.08 0 0.1 soundinc: 20786_switch_pakietowy_1.wav sounddec: 20786_switch_pakietowy_2.wav }
+radiochannelnext_sw: { radio_strzalkagora rot 0 0 0 soundinc: 24150_eads_gsmr_pik.wav }
+radiochannelprev_sw: { radio_strzalkadol rot 0 0 0 soundinc: 24150_eads_gsmr_pik.wav }
+radiotest_sw: { radio_4 rot 0 0 0 soundinc: 24150_eads_gsmr_pik.wav }
+radiostop_sw: { radio_rs rot 0 0 0 soundinc: 24150_eads_gsmr_pik.wav }
+radio_sw: { radio_e rot 0 0 0 soundinc: 24150_eads_gsmr_pik.wav sounddec: 24150_eads_gsmr_pik.wav }
+alarmchain: { nagle_bt mov -0.015 0 0.1 soundinc: 20786_189_emergency_brake.wav sounddec: 20786_189_unbrake.wav }
+universal2: { roleta_mechanik mov 0.18 0.0 0.28 soundinc: [1007]roleta_dol2.wav sounddec: [1007]roleta_gora2.wav }
+universal1: { roleta_pomocnik mov 0.2 0.0 0.3 soundinc: [1007]roleta_dol2.wav sounddec: [1007]roleta_gora2.wav }
+distancecounter_sw: { zasadniczy_przycisk mov -0.003 0 0.1 soundinc: 20786_en62_button_stable_1_on.wav sounddec: 20786_en62_button_stable_1_of.wav }
+springbrakeon_bt: { spring_enable mov -0.003 0 0.1 soundinc: 20786_en62_button_stable_1_on.wav sounddec: 20786_en62_button_stable_1_of.wav }
+springbrakeoff_bt: { spring_disable mov 1 0 0.1 soundinc: 20786_en62_button_stable_1_on.wav sounddec: 20786_en62_button_stable_1_of.wav }
+doorpermitpreset_sw: { drzwi_p rot 0.2 0 0.1 soundinc: 20786_203e_hebelek_2_on.wav sounddec: 20786_203e_hebelek_2_of.wav }
+doorpermitpreset_sw: { door_selector rot -0.249 0.250 0.1 soundinc: 20786_203e_hebelek_2_on.wav sounddec: 20786_203e_hebelek_2_of.wav }
+universalbrake3_bt: { bt_asymilacja -0.003 0 0.1 type: push soundinc: 20786_en62_button_stable_1_on.wav sounddec: 20786_en62_button_stable_1_of.wav }
+manualbrake: { bezposr rot -0.005 0.0 -5.8 sound0: 20786_189_unbrake.wav sound10: 20786_189_brake_6.wav }
+brakepress: CylHamKnob rot 1.25 0 0
+universal1: WinL mov -0.60 0 0.2
+universal2: WinR mov -0.60 0 0.2
+
+brakepressB: CylHamKnobB rot 1.25 0 0.2 
+pipepress: pgKnob rot 0.7 0 0 
+limpipepress: zgknob rot 0.72 0 0
+clock: analog 
+i-instrumentlight: pods_man
+i-forward: kierunek_przod
+i-backward: kierunek_tyl 
+i-voltbrake: neutralny
+i-cablight: lampa
+i-radio: radio
+i-trainheating: i-guzik_grzania
+i-mainpipelock: zasilanie_ham
+
+springbrakeoff_bt: { spring_off mov 0 0 0 }
+
+pyscreen: screen eu44_render
+pyscreen: wyswietlacz radio_render
+
 
 cab2definition:
 -1.65 1.5 -8.05 1.65 1.5 -6.57

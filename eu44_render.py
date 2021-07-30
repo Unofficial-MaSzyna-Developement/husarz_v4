@@ -397,6 +397,10 @@ class eu44_render(abstractscreenrenderer):
 					ref_a = state['lights_front']
 					ref_b = state['lights_rear']
 
+					if state['cab'] == -1:
+						ref_a = state['lights_rear']
+						ref_b = state['lights_front']
+
 					#Reflektory
 					byteSumToDraw(ref_a, 0, draw)
 					byteSumToDraw(ref_b, 1, draw)
