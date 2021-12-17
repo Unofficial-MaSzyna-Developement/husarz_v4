@@ -147,6 +147,11 @@ class eu44_render(abstractscreenrenderer):
 		self.oddanyprad = 0
 		
 	def _render(self, state):
+
+
+		
+
+
 		obrazek = self.podklad.copy()
 		seconds = state['seconds']	
 		if state['battery'] or state['converter']:
